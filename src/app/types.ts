@@ -1,5 +1,3 @@
-
-
 export type Movie = {
   name: string;
   adult: boolean;
