@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Movie } from "../../types";
 import { BASE_IMAGE_URL } from "../../constants";
 import { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
 
 type NowPlayingProps = {
   nowPlayingMovies: Movie[];
@@ -69,7 +70,7 @@ export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden bg-stone-100  dark:bg-gray-900 ">
+    <div className="relative w-full overflow-hidden bg-stone-100 dark:bg-gray-900 min-h-[400px]">
       <button
         onClick={scrollLeft}
         className="absolute z-20 left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 shadow-xl rounded-full p-3 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
@@ -84,17 +85,19 @@ export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
         {nowPlayingMovies
           .filter((movie) => movie.backdrop_path)
           .map((movie) => (
-            <div
-              key={movie.id}
+            <Link
+              key={movie.id} href={`/movieDetails/${movie.id}`}
               className="w-screen flex-shrink-0 snap-start relative p-4"
             >
               <div className="mx-auto max-w-[1280px] relative">
                 <img
                   src={`${BASE_IMAGE_URL}w1280${movie.backdrop_path}`}
                   alt={movie.title}
-                  onError={(e) => (e.currentTarget.src = "/fallback-image.jpg")}
-                  className="w-full h-auto object-cover rounded-md"
+                  width={1280}
+                  height={720}
+                  className="w-full h-auto object-cover rounded-md aspect-video"
                 />
+
 
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-md">
                   <h2 className="text-xl font-bold text-white mb-4">{movie.title}</h2>
@@ -104,16 +107,17 @@ export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
                       ⭐ {movie.vote_average.toFixed(1)} / 10
                     </span>
                     <span className="bg-purple-600 text-white font-semibold text-xs px-2 py-1 rounded-full shadow-sm hover:bg-purple-500 transition">
-                       {formatDate(movie.release_date)}
+                      {formatDate(movie.release_date)}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-3 text-sm text-center dark:text-gray-300 line-clamp-3">
+              <div className="mt-3 text-sm text-center dark:text-gray-300 line-clamp-3 min-h-[60px]">
                 {movie.overview}
               </div>
-            </div>
+
+            </Link>
           ))}
       </div>
 

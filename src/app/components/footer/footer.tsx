@@ -2,16 +2,16 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'luci
 
 export function Footer() {
   return (
-    <footer className="w-full bg-blue-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-10 mt-10 transition-all">
+    <footer className="w-full bg-blue-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-10 mt-10 transition-all min-h-[150px] h-auto">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-6">
         
-        {/* Company Logo & Tagline */}
+     {/* logo & tagline */}
         <div>
           <img src="movie-logo.png" alt="logo" className="w-24 mb-4" />
           <p className="text-sm">Your favorite movies, anytime, anywhere.</p>
         </div>
 
-        {/* Quick Links */}
+        {/* links */}
         <div>
           <h3 className="font-semibold mb-4 text-lg">Quick Links</h3>
           <ul className="space-y-2 text-sm">

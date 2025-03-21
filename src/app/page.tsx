@@ -34,8 +34,8 @@ export default function Home() {
     if (searchValue) {
       setSelectedGenre(null)
     }
-    console.log(moviesbyInput)
   }, [selectedGenre, searchValue])
+  
   // NowPlaying Movies Fetch 
   useEffect(() => {
     const getNowPlayingMovies = async () => {

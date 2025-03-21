@@ -9,6 +9,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { PageSwitch } from "../sub-components/Pagination"
+import Link from "next/link"
 
 type MoviesGenreProps = {
     moviesbyGenre: Movie[];
@@ -42,7 +43,7 @@ export function MoviesGenre({ moviesbyGenre, selectedGenre }: MoviesGenreProps) 
 
             <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 justify-items-center">
                 {moviesbyGenre.map((movie) =>
-                    <li key={movie.id} className="flex-shrink-0 w-40 sm:w-48 list-none">
+                    <Link key={movie.id} href={`/movieDetails/${movie.id}`} className="flex-shrink-0 w-40 sm:w-48">
                         <Card className="h-full flex flex-col bg-neutral-100 dark:bg-gray-800 shadow-md p-2">
                             <CardContent className="p-0">
                                 <img
@@ -57,12 +58,12 @@ export function MoviesGenre({ moviesbyGenre, selectedGenre }: MoviesGenreProps) 
                                         ⭐ {movie.vote_average.toFixed(1)} / 10
                                     </span>
                                 </CardTitle>
-                                <CardDescription className=" text-sm font-bold dark:text-neutral-200 text-black mb-4 truncate">
+                                <CardDescription className=" text-sm font-bold dark:text-neutral-200 text-black  mb-4 truncate">
                                     {movie.title}
                                 </CardDescription>
                             </CardHeader>
                         </Card>
-                    </li>
+                    </Link>
                 )}
 
             </div>
