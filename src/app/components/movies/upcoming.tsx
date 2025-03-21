@@ -31,7 +31,7 @@ export function UpComing({ upComingMovies }: UpComingMoviesProps) {
           .filter((movie) => movie.poster_path)
           .map((movie) => (
             <li key={movie.id} className="flex-shrink-0 w-40 sm:w-48">
-              <Card className="h-full flex flex-col bg-blue-100 dark:bg-gray-800 shadow-md">
+              <Card className="h-full flex flex-col bg-blue-100 dark:bg-gray-800 shadow-md p-2">
                 <CardContent className="p-0">
                   <img
                     src={`${BASE_IMAGE_URL}w500${movie.poster_path}`}
