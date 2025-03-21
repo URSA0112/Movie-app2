@@ -11,6 +11,8 @@ import { Movie } from "./types";
 
 export default function Home() {
   const [nowPlayingMovies, setNowPlayingMovies] = useState<Movie[]>([])
+  const [upComingMovies, setUpComingMovies]=useState<Movie[]>([])
+  const [popularMovies, setPopularMovies]=useState<Movie[]>([])
 
   //NowPlaying Movies Fetch 
   useEffect(() => {
@@ -21,13 +23,32 @@ export default function Home() {
     getNowPlayingMovies()
   }, [])
 
+  // Upcoming Movies Fetch
+  useEffect(() => {
+    const getUpComingMovies = async () => {
+      const res = await api.get(`/movie/upcoming`)
+      setUpComingMovies(res.data.results) 
+    }
+    getUpComingMovies()
+  }, [])
+
+  //Popular Movies Fetch
+  useEffect(() => {
+    const getPopularMovies = async () => {
+      const res = await api.get(`/movie/popular`)
+      setPopularMovies(res.data.results) 
+    }
+    getPopularMovies()
+  }, [])
+
+
   return (
     <div className="w-full h-full">
       <Header></Header>
       <Nowplaying nowPlayingMovies={nowPlayingMovies} setNowPlayingMovies={setNowPlayingMovies}></Nowplaying>
-      <div>
-        <UpComing></UpComing>
-        <Popular></Popular>
+      <div className="">
+        <UpComing upComingMovies={upComingMovies} setUpComingMovies={setUpComingMovies}></UpComing>
+        <Popular popularMovies={popularMovies} setPopularMovies={setPopularMovies}></Popular>
         <TopRated></TopRated>
       </div>
     </div>

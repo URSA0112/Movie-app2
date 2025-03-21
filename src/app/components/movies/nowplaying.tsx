@@ -10,7 +10,7 @@ type NowPlayingProps = {
 };
 
 export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
-    console.log(nowPlayingMovies)
+    // console.log(nowPlayingMovies)
     const carouselRef = useRef<HTMLDivElement>(null);
 
     const scrollLeft = () => {
@@ -48,7 +48,7 @@ export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
                 onClick={scrollLeft}
                 className="absolute z-20 left-4 top-1/2 -translate-y-1/2 bg-white  dark:bg-black  shadow-xl rounded-full p-3 hover:bg-gray-200 transition"
             >
-                <ChevronLeft size={28} />
+                <ChevronLeft size={15} />
             </button>
 
             <div
@@ -64,7 +64,7 @@ export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
                             src={`${BASE_IMAGE_URL}w1280${movie.backdrop_path}`}
                             alt={movie.title}
                             onError={(e) => (e.currentTarget.src = '/fallback-image.jpg')}
-                            className="w-full h-auto object-cover"
+                            className="w-full h-auto lg:w-[1280px] justify-self-center object-cover"
                         />
 
                         <div className="absolute top-[5%] w-full  p-6 text-white text-2xl ">
@@ -82,7 +82,7 @@ export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
                 onClick={scrollRight}
                 className="absolute z-20 right-4 top-1/2 -translate-y-1/2 bg-white dark:bg-black shadow-xl rounded-full p-3 hover:bg-gray-200 transition"
             >
-                <ChevronRight size={28} />
+                <ChevronRight size={15} />
             </button>
         </div>
     );
