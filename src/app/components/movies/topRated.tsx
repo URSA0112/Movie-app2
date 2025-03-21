@@ -22,6 +22,23 @@ export function TopRated({ topRatedMovies, setTopRatedMovies }: TopRatedMoviesPr
 
     return (
         <div className="w-full mt-5 overflow-hidden ">
+                  <div className="w-full flex justify-between items-center px-6 py-4 mb-6 
+  bg-gradient-to-r from-gray-100/80 to-gray-200/80 dark:from-white/5 dark:to-white/10
+  backdrop-blur-lg rounded-2xl shadow-xl border border-gray-300/40 dark:border-white/20
+  hover:shadow-2xl transition-all duration-300 font-sans">
+
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white tracking-wide">
+      Top Rated Movies
+        </h2>
+
+        <button
+          className="text-sm md:text-base px-5 py-2 rounded-full border border-gray-500/40 dark:border-white/30 
+    bg-gray-100/70 dark:bg-white/10 text-gray-800 dark:text-white 
+    hover:bg-gray-300/80 dark:hover:bg-white/20 hover:text-black transition-all duration-300 shadow-inner hover:shadow-xl"
+        >
+          See More
+        </button>
+      </div>
             <ul
                 id="card-container"
                 className="flex gap-4 overflow-x-auto scroll-smooth pb-4"

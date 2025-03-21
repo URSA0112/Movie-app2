@@ -27,12 +27,15 @@ export function Header({ selectedGenre, setSelectedGenre, searchValue, setSearch
   function HandleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value);
   }
+const defaultPage = ()=>{
+
+}
 
   return (
     <header className="w-full bg-blue-300 dark:bg-gray-800 shadow-md p-4 mb-5">
       <div className="container mx-auto flex  md:flex-row justify-between items-center gap-4 md:gap-0">
         {/* Logo */}
-        <img src="movie-logo.png" alt="movie-logo" className="w-24 max-w-[120px] h-auto"  />
+        <img src="movie-logo.png" alt="movie-logo" className="w-24 max-w-[120px] h-auto" onClick={defaultPage} />
 
         {/* Genre + Search */}
         <div className="flex sm:flex-row md:flex-row items-center md:gap-7 w-full md:w-[400px] gap-5  ">

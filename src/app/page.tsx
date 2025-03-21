@@ -23,8 +23,9 @@ export default function Home() {
   const [selectedGenre, setSelectedGenre] = useState<{ id: number; name: string } | null>(null)
   const [searchValue, setSearchValue] = useState<string | null>("")
   const [moviesbyInput, setmoviesbyInput] = useState<Movie[]>([])
-  const [moviesbyGenre, setMoviesByGenre] = useState<Movie[]>([]) 
+  const [moviesbyGenre, setMoviesByGenre] = useState<Movie[]>([])
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     if (selectedGenre) {
@@ -35,7 +36,6 @@ export default function Home() {
     }
     console.log(moviesbyInput)
   }, [selectedGenre, searchValue])
-
   // NowPlaying Movies Fetch 
   useEffect(() => {
     const getNowPlayingMovies = async () => {
@@ -74,6 +74,7 @@ export default function Home() {
           params: { page: currentPage },
         });
         setPopularMovies(res.data.results);
+
       } catch (error) {
         console.error("Error fetching popular movies:", error);
       }
@@ -103,8 +104,8 @@ export default function Home() {
       const res = await axios.get(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${selectedGenre.id}`, {
         params: { page: currentPage },
       });
-      const results = res.data.results;
-      setMoviesByGenre(results);
+      setMoviesByGenre(res.data.results);
+      setTotalPages(res.data.total_pages)
     };
     getMovieByGenre();
   }, [selectedGenre, currentPage]);
@@ -116,12 +117,11 @@ export default function Home() {
       const res = await axios.get(`${BASE_URL}/search/movie?query=${searchValue}&api_key=${API_KEY}`, {
         params: { page: currentPage },
       })
-      const searchedMovies = res.data.results
-      console.log(res)
-      setmoviesbyInput(searchedMovies)
+      setTotalPages(res.data.total_pages)
+      setmoviesbyInput(res.data.results)
     }
     getMovieBySearch()
-  }, [searchValue])
+  }, [searchValue, currentPage])
 
 
 
@@ -136,7 +136,7 @@ export default function Home() {
       </div>)}
       {(selectedGenre || searchValue) && (
         <div className="mt-15">
-          <PageSwitch currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          <PageSwitch currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
         </div>
       )}
 
