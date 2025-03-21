@@ -4,15 +4,16 @@ import { ToggleTheme } from "../Theme/ToggleTheme";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { api, API_KEY, BASE_URL } from "@/app/constants";
-import { Search } from "lucide-react";
 
 
 type HeaderProps = {
   selectedGenre: { id: number; name: string } | null,
   setSelectedGenre: Dispatch<SetStateAction<{ id: number; name: string } | null>>,
-  searchValue:string | null
+  searchValue: string | null,
+  setSearchValue: Dispatch<SetStateAction<string | null>>
 }
-export function Header({ selectedGenre, setSelectedGenre, searchValue }: HeaderProps) {
+export function Header({ selectedGenre, setSelectedGenre, searchValue, setSearchValue }: HeaderProps) {
+
   const [genre, setGenre] = useState<Movie[]>([])
 
   useEffect(() => {
@@ -23,11 +24,15 @@ export function Header({ selectedGenre, setSelectedGenre, searchValue }: HeaderP
     getGenres()
   }, [])
 
+  function HandleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchValue(e.target.value);
+  }
+
   return (
     <header className="w-full bg-blue-300 dark:bg-gray-800 shadow-md p-4 mb-5">
       <div className="container mx-auto flex  md:flex-row justify-between items-center gap-4 md:gap-0">
         {/* Logo */}
-        <img src="movie-logo.png" alt="movie-logo" className="w-24 max-w-[120px] h-auto" />
+        <img src="movie-logo.png" alt="movie-logo" className="w-24 max-w-[120px] h-auto"  />
 
         {/* Genre + Search */}
         <div className="flex sm:flex-row md:flex-row items-center md:gap-7 w-full md:w-[400px] gap-5  ">
@@ -53,11 +58,13 @@ export function Header({ selectedGenre, setSelectedGenre, searchValue }: HeaderP
           </div>
           {/* input search */}
           <input
+            type="text"
             placeholder="Search movie..."
             className="w-[70%] h-9 sm:w-full md:w-[600px] 
             px-3 py-2 rounded-md border border-gray-400 focus:outline-none focus:ring-2
              focus:ring-blue-500 text-sm bg-neutral-100 dark:bg-gray-800"
-             value={searchValue ?? ""}
+            value={searchValue ?? ""}
+            onChange={HandleInputChange}
           />
         </div>
 

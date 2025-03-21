@@ -11,6 +11,7 @@ import { Footer } from "./components/footer/footer";
 import axios from "axios";
 import { MoviesGenre } from "./components/movies/GenreMoviesPage";
 import { MoviesSearched } from "./components/movies/SearchedMoviesPage";
+import { PageSwitch } from "./components/sub-components/Pagination";
 
 
 
@@ -20,10 +21,20 @@ export default function Home() {
   const [popularMovies, setPopularMovies] = useState<Movie[]>([])
   const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([])
   const [selectedGenre, setSelectedGenre] = useState<{ id: number; name: string } | null>(null)
-  const [searchValue, setSearchValue] = useState<string>("")
+  const [searchValue, setSearchValue] = useState<string | null>("")
   const [moviesbyInput, setmoviesbyInput] = useState<Movie[]>([])
+  const [moviesbyGenre, setMoviesByGenre] = useState<Movie[]>([]) 
   const [currentPage, setCurrentPage] = useState(1);
-  const [moviesbyGenre, setMoviesByGenre] = useState<Movie[]>([])
+
+  useEffect(() => {
+    if (selectedGenre) {
+      setSearchValue("")
+    }
+    if (searchValue) {
+      setSelectedGenre(null)
+    }
+    console.log(moviesbyInput)
+  }, [selectedGenre, searchValue])
 
   // NowPlaying Movies Fetch 
   useEffect(() => {
@@ -106,24 +117,29 @@ export default function Home() {
         params: { page: currentPage },
       })
       const searchedMovies = res.data.results
+      console.log(res)
       setmoviesbyInput(searchedMovies)
-
     }
     getMovieBySearch()
   }, [searchValue])
 
+
+
   return (
     <div className="w-full h-full ">
-      <Header selectedGenre={selectedGenre} setSelectedGenre={setSelectedGenre} searchValue={searchValue}></Header>
+      <Header selectedGenre={selectedGenre} setSelectedGenre={setSelectedGenre} searchValue={searchValue} setSearchValue={setSearchValue}></Header>
       <Nowplaying nowPlayingMovies={nowPlayingMovies} setNowPlayingMovies={setNowPlayingMovies}></Nowplaying>
-
-      {/* <div className="">
+      {searchValue && searchValue.length > 0 ? (<div className="w-full h-auto "><MoviesSearched moviesbySearch={moviesbyInput}></MoviesSearched></div>) : selectedGenre ? (<div className="w-full h-auto "><MoviesGenre moviesbyGenre={moviesbyGenre} selectedGenre={selectedGenre} ></MoviesGenre></div>) : (<div className="">
         <UpComing upComingMovies={upComingMovies} setUpComingMovies={setUpComingMovies}></UpComing>
         <Popular popularMovies={popularMovies} setPopularMovies={setPopularMovies}></Popular>
         <TopRated topRatedMovies={topRatedMovies} setTopRatedMovies={setTopRatedMovies}></TopRated>
-      </div> */}
-      <div className="w-full h-auto "><MoviesGenre moviesbyGenre={moviesbyGenre}></MoviesGenre></div>
-      <div className="w-full h-auto "><MoviesSearched moviesbySearch={moviesbyInput}></MoviesSearched></div>
+      </div>)}
+      {(selectedGenre || searchValue) && (
+        <div className="mt-15">
+          <PageSwitch currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        </div>
+      )}
+
       <Footer></Footer>
     </div>
   )

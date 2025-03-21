@@ -70,8 +70,6 @@ export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
 
   return (
     <div className="relative w-full overflow-hidden bg-stone-100  dark:bg-gray-900 ">
-
-      
       <button
         onClick={scrollLeft}
         className="absolute z-20 left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 shadow-xl rounded-full p-3 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
