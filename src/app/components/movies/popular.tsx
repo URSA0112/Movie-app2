@@ -49,7 +49,6 @@ export function Popular({ popularMovies, setPopularMovies }: PopularMoviesProps)
                     {movie.title}
                   </CardDescription>
                 </CardHeader>
-             
               </Card>
             </li>
           ))}

@@ -9,6 +9,8 @@ import { TopRated } from "./components/movies/topRated";
 import { Movie } from "./types";
 import { Footer } from "./components/footer/footer";
 import axios from "axios";
+import { MoviesGenre } from "./components/movies/GenreMoviesPage";
+import { MoviesSearched } from "./components/movies/SearchedMoviesPage";
 
 
 
@@ -91,8 +93,7 @@ export default function Home() {
         params: { page: currentPage },
       });
       const results = res.data.results;
-      setMoviesByGenre(results); // ✅ Store results in a separate array
-      console.log(results);
+      setMoviesByGenre(results);
     };
     getMovieByGenre();
   }, [selectedGenre, currentPage]);
@@ -112,14 +113,17 @@ export default function Home() {
   }, [searchValue])
 
   return (
-    <div className="w-full h-full">
-      <Header selectedGenre={selectedGenre} setSelectedGenre={setSelectedGenre}></Header>
+    <div className="w-full h-full ">
+      <Header selectedGenre={selectedGenre} setSelectedGenre={setSelectedGenre} searchValue={searchValue}></Header>
       <Nowplaying nowPlayingMovies={nowPlayingMovies} setNowPlayingMovies={setNowPlayingMovies}></Nowplaying>
-      <div className="">
+
+      {/* <div className="">
         <UpComing upComingMovies={upComingMovies} setUpComingMovies={setUpComingMovies}></UpComing>
         <Popular popularMovies={popularMovies} setPopularMovies={setPopularMovies}></Popular>
         <TopRated topRatedMovies={topRatedMovies} setTopRatedMovies={setTopRatedMovies}></TopRated>
-      </div>
+      </div> */}
+      <div className="w-full h-auto "><MoviesGenre moviesbyGenre={moviesbyGenre}></MoviesGenre></div>
+      <div className="w-full h-auto "><MoviesSearched moviesbySearch={moviesbyInput}></MoviesSearched></div>
       <Footer></Footer>
     </div>
   )

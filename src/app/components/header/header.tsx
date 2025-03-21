@@ -4,13 +4,15 @@ import { ToggleTheme } from "../Theme/ToggleTheme";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { api, API_KEY, BASE_URL } from "@/app/constants";
+import { Search } from "lucide-react";
 
 
 type HeaderProps = {
-  selectedGenre: { id: number; name: string } | null
-  setSelectedGenre: Dispatch<SetStateAction<{ id: number; name: string } | null>>
+  selectedGenre: { id: number; name: string } | null,
+  setSelectedGenre: Dispatch<SetStateAction<{ id: number; name: string } | null>>,
+  searchValue:string | null
 }
-export function Header({ selectedGenre, setSelectedGenre }: HeaderProps) {
+export function Header({ selectedGenre, setSelectedGenre, searchValue }: HeaderProps) {
   const [genre, setGenre] = useState<Movie[]>([])
 
   useEffect(() => {
@@ -55,6 +57,7 @@ export function Header({ selectedGenre, setSelectedGenre }: HeaderProps) {
             className="w-[70%] h-9 sm:w-full md:w-[600px] 
             px-3 py-2 rounded-md border border-gray-400 focus:outline-none focus:ring-2
              focus:ring-blue-500 text-sm bg-neutral-100 dark:bg-gray-800"
+             value={searchValue ?? ""}
           />
         </div>
 
