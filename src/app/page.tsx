@@ -35,7 +35,7 @@ export default function Home() {
       setSelectedGenre(null)
     }
   }, [selectedGenre, searchValue])
-  
+
   // NowPlaying Movies Fetch 
   useEffect(() => {
     const getNowPlayingMovies = async () => {
@@ -127,13 +127,27 @@ export default function Home() {
 
   return (
     <div className="w-full h-full ">
-      <Header selectedGenre={selectedGenre} setSelectedGenre={setSelectedGenre} searchValue={searchValue} setSearchValue={setSearchValue}></Header>
-      <Nowplaying nowPlayingMovies={nowPlayingMovies} setNowPlayingMovies={setNowPlayingMovies}></Nowplaying>
-      {searchValue && searchValue.length > 0 ? (<div className="w-full h-auto "><MoviesSearched moviesbySearch={moviesbyInput}></MoviesSearched></div>) : selectedGenre ? (<div className="w-full h-auto "><MoviesGenre moviesbyGenre={moviesbyGenre} selectedGenre={selectedGenre} ></MoviesGenre></div>) : (<div className="">
-        <UpComing upComingMovies={upComingMovies} setUpComingMovies={setUpComingMovies}></UpComing>
-        <Popular popularMovies={popularMovies} setPopularMovies={setPopularMovies}></Popular>
-        <TopRated topRatedMovies={topRatedMovies} setTopRatedMovies={setTopRatedMovies}></TopRated>
-      </div>)}
+      <Header
+        selectedGenre={selectedGenre}
+        setSelectedGenre={setSelectedGenre}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}>
+      </Header>
+
+      <Nowplaying
+        nowPlayingMovies={nowPlayingMovies}
+        setNowPlayingMovies={setNowPlayingMovies}>
+      </Nowplaying>
+
+      {searchValue ?
+        (<div className="w-full h-auto "><MoviesSearched moviesbySearch={moviesbyInput}></MoviesSearched></div>)
+        : selectedGenre ? (<div className="w-full h-auto "><MoviesGenre moviesbyGenre={moviesbyGenre} selectedGenre={selectedGenre} ></MoviesGenre></div>)
+          : (<div className="">
+            <UpComing upComingMovies={upComingMovies} setUpComingMovies={setUpComingMovies}></UpComing>
+            <Popular popularMovies={popularMovies} setPopularMovies={setPopularMovies}></Popular>
+            <TopRated topRatedMovies={topRatedMovies} setTopRatedMovies={setTopRatedMovies}></TopRated>
+          </div>)}
+
       {(selectedGenre || searchValue) && (
         <div className="mt-15">
           <PageSwitch currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />

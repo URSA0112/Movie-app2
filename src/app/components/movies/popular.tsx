@@ -19,8 +19,7 @@ type PopularMoviesProps = {
 }
 export function Popular({ popularMovies, setPopularMovies }: PopularMoviesProps) {
 
-  const [showAll, setShowAll] = useState(false)
-  const displayedMovies = showAll ? popularMovies : popularMovies.slice(0, 10)
+
 
   return (
     <div className="w-full mt-5 overflow-hidden">
@@ -46,7 +45,7 @@ export function Popular({ popularMovies, setPopularMovies }: PopularMoviesProps)
         id="card-container"
         className="flex gap-4 overflow-x-auto scroll-smooth pb-4"
       >
-        {displayedMovies
+        {popularMovies
           .filter((movie) => movie.poster_path)
           .map((movie) => (
             <Link key={movie.id} href={`/movieDetails/${movie.id}`} className="flex-shrink-0 w-40 sm:w-48">
@@ -73,17 +72,6 @@ export function Popular({ popularMovies, setPopularMovies }: PopularMoviesProps)
               </Card>
             </Link>
           ))}
-
-        {!showAll && popularMovies.length > 10 && (
-          <li className="flex-shrink-0 flex items-center">
-            <button
-              onClick={() => setShowAll(true)}
-              className="px-3 py-1 bg-blue-500 text-white text-sm rounded-full hover:bg-blue-600 transition whitespace-nowrap"
-            >
-              See All
-            </button>
-          </li>
-        )}
       </ul>
     </div>
   )

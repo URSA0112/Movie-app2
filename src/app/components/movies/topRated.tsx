@@ -18,8 +18,6 @@ type TopRatedMoviesProps = {
   setTopRatedMovies: Dispatch<SetStateAction<Movie[]>>
 }
 export function TopRated({ topRatedMovies, setTopRatedMovies }: TopRatedMoviesProps) {
-  const [showAll, setShowAll] = useState(false)
-  const displayedMovies = showAll ? topRatedMovies : topRatedMovies.slice(0, 10)
 
   return (
     <div className="w-full mt-5 overflow-hidden ">
@@ -44,7 +42,7 @@ export function TopRated({ topRatedMovies, setTopRatedMovies }: TopRatedMoviesPr
         id="card-container"
         className="flex gap-4 overflow-x-auto scroll-smooth pb-4"
       >
-        {displayedMovies
+        {topRatedMovies
           .filter((movie) => movie.poster_path)
           .map((movie) => (
             <Link key={movie.id} href={`/movieDetails/${movie.id}`} className="flex-shrink-0 w-40 sm:w-48">
@@ -72,16 +70,7 @@ export function TopRated({ topRatedMovies, setTopRatedMovies }: TopRatedMoviesPr
             </Link>
           ))}
 
-        {!showAll && topRatedMovies.length > 10 && (
-          <li className="flex-shrink-0 flex items-center">
-            <button
-              onClick={() => setShowAll(true)}
-              className="px-3 py-1 bg-blue-500 text-white text-sm rounded-full hover:bg-blue-600 transition whitespace-nowrap"
-            >
-              See All
-            </button>
-          </li>
-        )}
+   
       </ul>
     </div>
   )

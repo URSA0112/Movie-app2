@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Movie } from "../../types";
 import { BASE_IMAGE_URL } from "../../constants";
@@ -11,7 +11,7 @@ type NowPlayingProps = {
 };
 
 export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);  
 
   const formatDate = (date: string) => {
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
