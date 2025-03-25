@@ -10,7 +10,6 @@ import {
 import { Movie } from "@/app/types"
 import { Dispatch, SetStateAction } from "react"
 import { BASE_IMAGE_URL } from "@/app/constants"
-import { useState } from "react"
 import Link from "next/link"
 
 type TopRatedMoviesProps = {
@@ -30,13 +29,10 @@ export function TopRated({ topRatedMovies, setTopRatedMovies }: TopRatedMoviesPr
           Top Rated Movies
         </h2>
 
-        <button
-          className="text-sm md:text-base px-5 py-2 rounded-full border border-gray-500/40 dark:border-white/30 
-    bg-gray-100/70 dark:bg-white/10 text-gray-800 dark:text-white 
-    hover:bg-gray-300/80 dark:hover:bg-white/20 hover:text-black transition-all duration-300 shadow-inner hover:shadow-xl"
-        >
-          See More
-        </button>
+        <Link href={`/fullMoviesPage/top-rated`} className="text-sm md:text-base px-5 py-2 rounded-full border border-gray-500/40 dark:border-white/30
+          bg-gray-100/70 dark:bg-white/10 text-gray-800 dark:text-white
+          hover:bg-gray-300/80 dark:hover:bg-white/20 hover:text-black transition-all duration-300 shadow-inner hover:shadow-xl"
+        > See More </Link>
       </div>
       <ul
         id="card-container"

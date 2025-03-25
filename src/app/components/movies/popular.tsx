@@ -31,15 +31,10 @@ export function Popular({ popularMovies, setPopularMovies }: PopularMoviesProps)
         <h2 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white tracking-wide">
           Popular Movies
         </h2>
-
-        <button
-          className="text-sm md:text-base px-5 py-2 rounded-full border border-gray-500/40 dark:border-white/30 
-    bg-gray-100/70 dark:bg-white/10 text-gray-800 dark:text-white 
-    hover:bg-gray-300/80 dark:hover:bg-white/20 hover:text-black transition-all duration-300 shadow-inner hover:shadow-xl"
-
-        >
-          See More
-        </button>
+        <Link href={`/fullMoviesPage/popular`} className="text-sm md:text-base px-5 py-2 rounded-full border border-gray-500/40 dark:border-white/30
+          bg-gray-100/70 dark:bg-white/10 text-gray-800 dark:text-white
+          hover:bg-gray-300/80 dark:hover:bg-white/20 hover:text-black transition-all duration-300 shadow-inner hover:shadow-xl"
+        > See More </Link>
       </div>
       <ul
         id="card-container"

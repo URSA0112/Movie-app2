@@ -7,7 +7,7 @@ export function Footer() {
         
      {/* logo & tagline */}
         <div>
-          <img src="movie-logo.png" alt="logo" className="w-24 mb-4" />
+          <img src="/movie-logo.png" alt="logo" className="w-24 mb-4" />
           <p className="text-sm">Your favorite movies, anytime, anywhere.</p>
         </div>
 
