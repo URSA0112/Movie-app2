@@ -8,13 +8,10 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationLink } from '@/components/ui/pagination'
 import { Footer } from '@/app/components/footer/footer'
-import { Header } from '@/app/components/header/header'
-import { useRouter } from 'next/navigation';
-const router = useRouter();
 
-const defaultPage = () => {
-  router.push('/');
-};
+import { useRouter } from 'next/navigation';
+
+
 
 export default function FullMoviesPage() {
   const params = useParams()
@@ -22,7 +19,11 @@ export default function FullMoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPages, setTotalPages] = useState<number>(1)
+  const router = useRouter();
 
+  const defaultPage = () => {
+    router.push('/');
+  };
   useEffect(() => {
     if (!category) return
 
@@ -55,36 +56,34 @@ export default function FullMoviesPage() {
 
   return (
     <>
-  
+
       <div className='p-6 bg-gray-900 text-white'>
         <h2 className='text-3xl mb-6 capitalize'>{category.replace('-', ' ')} Movies</h2>
-        <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+        <div className='grid gap-3 grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 justify-items-center'>
           {movies.map((movie) => (
-            <Link
-              key={movie.id}
-              href={`/movieDetails/${movie.id}`}
-            >
-              <Card className='h-full flex flex-col bg-neutral-100 dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 p-2'>
-                <CardContent className='p-0'>
-                  <img
-                    src="/movie-logo.png"
-                    alt="movie-logo"
-                    className="w-24 max-w-[120px] h-auto cursor-pointer transition-transform hover:scale-105"
-                    onClick={defaultPage}
-                  />
-                </CardContent>
-                <CardHeader className='px-3 py-2 min-h-[80px]'>
-                  <CardTitle className='text-sm truncate min-h-[20px]'>
-                    <span className='bg-yellow-500 text-white font-semibold text-xs px-2 py-1 rounded-full shadow-sm'>
-                      ⭐ {movie.vote_average.toFixed(1)} / 10
-                    </span>
-                  </CardTitle>
-                  <CardDescription className='text-sm font-bold dark:text-neutral-200 text-black min-h-[40px] truncate'>
-                    {movie.title}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
+          <Link key={movie.id} href={`/movieDetails/${movie.id}`} className="flex-shrink-0 w-40 sm:w-48">
+          <Card className="h-full flex flex-col bg-neutral-100 dark:bg-gray-800 shadow-md p-2">
+            <CardContent className="p-0">
+              <img
+                src={`${BASE_IMAGE_URL}w500${movie.poster_path}`}
+                alt={movie.original_title}
+                width={500}
+                height={750}
+                className="w-full h-60 object-cover rounded-t-md"
+              />
+            </CardContent>
+            <CardHeader className="px-3 py-2 min-h-[80px]">
+              <CardTitle className="text-sm truncate min-h-[20px]" title={movie.title}>
+                <span className="bg-yellow-500 text-white font-semibold text-xs px-2 py-1 rounded-full shadow-sm">
+                  ⭐ {movie.vote_average.toFixed(1)} / 10
+                </span>
+              </CardTitle>
+              <CardDescription className="text-sm font-bold dark:text-neutral-200 text-black min-h-[40px] truncate">
+                {movie.title}
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </Link>
           ))}
         </div>
 

@@ -21,7 +21,12 @@ type HeaderProps = {
 
 export function Header({ selectedGenre, setSelectedGenre, searchValue, setSearchValue }: HeaderProps) {
   const [genre, setGenre] = useState<Movie[]>([]);
+  
   const router = useRouter();
+  const defaultPage = () => {
+    router.push("/");
+  };
+
 
   useEffect(() => {
     const getGenres = async () => {
@@ -34,10 +39,6 @@ export function Header({ selectedGenre, setSelectedGenre, searchValue, setSearch
   function HandleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue && setSearchValue(e.target.value);
   }
-
-  const defaultPage = () => {
-    router.push("/");
-  };
 
   return (
     <header className="w-full bg-blue-300 dark:bg-gray-800 shadow-md p-4 mb-5">
