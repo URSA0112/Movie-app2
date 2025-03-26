@@ -28,13 +28,6 @@ export function MoviesSearched({ moviesbySearch }: MoviesSearchedProps) {
           Search Results :
         </h2>
 
-        <button
-          className="text-sm md:text-base px-5 py-2 rounded-full border border-gray-500/40 dark:border-white/30 
-           bg-gray-100/70 dark:bg-white/10 text-gray-800 dark:text-white 
-           hover:bg-gray-300/80 dark:hover:bg-white/20 hover:text-black transition-all duration-300 shadow-inner hover:shadow-xl"
-        >
-          See More
-        </button>
       </div>
       <div className="grid gap-3 grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 justify-items-center">
         {moviesbySearch.map((movie) =>

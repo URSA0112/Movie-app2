@@ -8,6 +8,13 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationLink } from '@/components/ui/pagination'
 import { Footer } from '@/app/components/footer/footer'
+import { Header } from '@/app/components/header/header'
+import { useRouter } from 'next/navigation';
+const router = useRouter();
+
+const defaultPage = () => {
+  router.push('/');
+};
 
 export default function FullMoviesPage() {
   const params = useParams()
@@ -45,73 +52,78 @@ export default function FullMoviesPage() {
     }
   }
 
+
   return (
-    <div className='p-6 bg-gray-900 text-white'>
-      <h2 className='text-3xl mb-6 capitalize'>{category.replace('-', ' ')} Movies</h2>
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
-        {movies.map((movie) => (
-          <Link
-            key={movie.id}
-            href={`/movieDetails/${movie.id}`}
-          >
-            <Card className='h-full flex flex-col bg-neutral-100 dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 p-2'>
-              <CardContent className='p-0'>
-                <img
-                  src={`${BASE_IMAGE_URL}w500${movie.poster_path}`}
-                  alt={movie.title}
-                  className='w-full h-60 object-cover rounded-t-md'
-                />
-              </CardContent>
-              <CardHeader className='px-3 py-2 min-h-[80px]'>
-                <CardTitle className='text-sm truncate min-h-[20px]'>
-                  <span className='bg-yellow-500 text-white font-semibold text-xs px-2 py-1 rounded-full shadow-sm'>
-                    ⭐ {movie.vote_average.toFixed(1)} / 10
-                  </span>
-                </CardTitle>
-                <CardDescription className='text-sm font-bold dark:text-neutral-200 text-black min-h-[40px] truncate'>
-                  {movie.title}
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-        ))}
+    <>
+  
+      <div className='p-6 bg-gray-900 text-white'>
+        <h2 className='text-3xl mb-6 capitalize'>{category.replace('-', ' ')} Movies</h2>
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+          {movies.map((movie) => (
+            <Link
+              key={movie.id}
+              href={`/movieDetails/${movie.id}`}
+            >
+              <Card className='h-full flex flex-col bg-neutral-100 dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 p-2'>
+                <CardContent className='p-0'>
+                  <img
+                    src="/movie-logo.png"
+                    alt="movie-logo"
+                    className="w-24 max-w-[120px] h-auto cursor-pointer transition-transform hover:scale-105"
+                    onClick={defaultPage}
+                  />
+                </CardContent>
+                <CardHeader className='px-3 py-2 min-h-[80px]'>
+                  <CardTitle className='text-sm truncate min-h-[20px]'>
+                    <span className='bg-yellow-500 text-white font-semibold text-xs px-2 py-1 rounded-full shadow-sm'>
+                      ⭐ {movie.vote_average.toFixed(1)} / 10
+                    </span>
+                  </CardTitle>
+                  <CardDescription className='text-sm font-bold dark:text-neutral-200 text-black min-h-[40px] truncate'>
+                    {movie.title}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          ))}
+        </div>
+
+        <Pagination className='mt-10 flex justify-center'>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+                className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
+              />
+            </PaginationItem>
+
+            {[...Array(5)].map((_, index) => {
+              const pageNumber = currentPage - 2 + index
+              if (pageNumber > 0 && pageNumber <= totalPages) {
+                return (
+                  <PaginationItem key={index}>
+                    <PaginationLink
+                      onClick={() => handlePageChange(pageNumber)}
+                      isActive={pageNumber === currentPage}
+                    >
+                      {pageNumber}
+                    </PaginationLink>
+                  </PaginationItem>
+                )
+              }
+              return null
+            })}
+
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+                className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+        <Footer></Footer>
       </div>
-
-      <Pagination className='mt-10 flex justify-center'>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => handlePageChange(currentPage - 1)}
-              className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
-            />
-          </PaginationItem>
-
-          {[...Array(5)].map((_, index) => {
-            const pageNumber = currentPage - 2 + index
-            if (pageNumber > 0 && pageNumber <= totalPages) {
-              return (
-                <PaginationItem key={index}>
-                  <PaginationLink
-                    onClick={() => handlePageChange(pageNumber)}
-                    isActive={pageNumber === currentPage}
-                  >
-                    {pageNumber}
-                  </PaginationLink>
-                </PaginationItem>
-              )
-            }
-            return null
-          })}
-
-          <PaginationItem>
-            <PaginationNext
-              onClick={() => handlePageChange(currentPage + 1)}
-              className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-         <Footer></Footer>
-    </div>
+    </>
   )
 }

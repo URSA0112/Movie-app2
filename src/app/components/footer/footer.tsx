@@ -1,17 +1,29 @@
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export function Footer() {
+  const router = useRouter();
+
+  const defaultPage = () => {
+    router.push('/');
+  };
+
   return (
     <footer className="w-full bg-blue-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-10 mt-10 transition-all min-h-[150px] h-auto">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-6">
         
-     {/* logo & tagline */}
-        <div>
-          <img src="/movie-logo.png" alt="logo" className="w-24 mb-4" />
+        {/* logo & tagline */}
+        <div >
+          <img
+            src="/movie-logo.png"
+            alt="movie-logo"
+            className="w-24 max-w-[120px] h-auto cursor-pointer mb-5"
+            onClick={defaultPage}
+          />
           <p className="text-sm">Your favorite movies, anytime, anywhere.</p>
         </div>
 
-        {/* links */}
+        {/* Quick Links */}
         <div>
           <h3 className="font-semibold mb-4 text-lg">Quick Links</h3>
           <ul className="space-y-2 text-sm">
