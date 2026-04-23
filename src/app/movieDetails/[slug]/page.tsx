@@ -61,6 +61,7 @@ export default function MovieDetails() {
 
     return (
         <>
+            <Header></Header>
             <div className="p-6 bg-white dark:bg-gray-800 text-black dark:text-white">
 
                 <h2 className="text-3xl lg:text-4xl font-bold drop-shadow mb-6">{movie.title}</h2>

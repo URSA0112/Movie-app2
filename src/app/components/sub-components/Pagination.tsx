@@ -35,13 +35,13 @@ export function PageSwitch({ currentPage, setCurrentPage, totalPages }: PageSwit
       if (currentPage > 3) {
         pages.push("...");
       }
-      const startPage = Math.max(2, currentPage - 1);
-      const endPage = Math.min(totalPages - 1, currentPage + 1);
-  
+      const startPage = Math.max(2, currentPage - 4);
+      const endPage = Math.min(totalPages - 1, currentPage + 4);
+
       for (let i = startPage; i <= endPage; i++) {
         pages.push(i);
       }
-  
+
       if (currentPage < totalPages - 2) {
         pages.push("...");
       }
@@ -49,7 +49,7 @@ export function PageSwitch({ currentPage, setCurrentPage, totalPages }: PageSwit
     }
     return pages;
   }
-  
+
   return (
     <Pagination>
       <PaginationContent>
@@ -70,11 +70,10 @@ export function PageSwitch({ currentPage, setCurrentPage, totalPages }: PageSwit
             ) : (
               <button
                 onClick={() => setCurrentPage(page as number)}
-                className={`px-3 py-1 rounded transition ${
-                  page === currentPage
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-black dark:text-white"
-                }`}
+                className={`px-3 py-1 rounded transition ${page === currentPage
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-black dark:text-white"
+                  }`}
               >
                 {page}
               </button>

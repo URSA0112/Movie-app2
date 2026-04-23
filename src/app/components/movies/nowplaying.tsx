@@ -11,7 +11,7 @@ type NowPlayingProps = {
 };
 
 export function Nowplaying({ nowPlayingMovies }: NowPlayingProps) {
-  const carouselRef = useRef<HTMLDivElement>(null);  
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const formatDate = (date: string) => {
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };

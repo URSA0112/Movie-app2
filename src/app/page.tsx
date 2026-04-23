@@ -134,10 +134,8 @@ export default function Home() {
         setSearchValue={setSearchValue}>
       </Header>
 
-      <Nowplaying
-        nowPlayingMovies={nowPlayingMovies}
-        setNowPlayingMovies={setNowPlayingMovies}>
-      </Nowplaying>
+      {!searchValue && !selectedGenre && (<Nowplaying nowPlayingMovies={nowPlayingMovies} setNowPlayingMovies={setNowPlayingMovies}></Nowplaying>
+      )}
 
       {searchValue ?
         (<div className="w-full h-auto "><MoviesSearched moviesbySearch={moviesbyInput}></MoviesSearched></div>)

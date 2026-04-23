@@ -21,7 +21,7 @@ type HeaderProps = {
 
 export function Header({ selectedGenre, setSelectedGenre, searchValue, setSearchValue }: HeaderProps) {
   const [genre, setGenre] = useState<Movie[]>([]);
-  
+
   const router = useRouter();
   const defaultPage = () => {
     router.push("/");
@@ -64,7 +64,7 @@ export function Header({ selectedGenre, setSelectedGenre, searchValue, setSearch
                 }}
               >
                 <SelectTrigger className="w-full bg-neutral-100">
-                  <SelectValue placeholder="Choose Genre" />
+                  <SelectValue placeholder={selectedGenre ? selectedGenre.name : "choose genre"} />
                 </SelectTrigger>
                 <SelectContent>
                   {genre.map((each) => (
