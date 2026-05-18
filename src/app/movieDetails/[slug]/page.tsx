@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import Link from "next/link";
 import { Footer } from "@/app/components/footer/footer";
 import { Header } from "@/app/components/header/header";
+import AnimatedButton from "@/app/components/sub-components/AnimatedBtn";
 
 export default function MovieDetails() {
     const params = useParams();
@@ -82,12 +83,13 @@ export default function MovieDetails() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                     <h2 className="text-3xl lg:text-4xl font-bold drop-shadow">{movie.title}</h2>
                     {trailerKey && (
-                        <button
-                            onClick={() => setTrailerOpen(true)}
-                            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-full transition-colors w-fit shrink-0"
+                        <div  onClick={() => setTrailerOpen(true)}>
+                        <AnimatedButton
+                            className="flex items-center"
                         >
                             ▶ Watch Trailer
-                        </button>
+                        </AnimatedButton>
+                        </div>
                     )}
                 </div>
 
