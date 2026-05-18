@@ -1,13 +1,13 @@
 'use client'
 import { useParams } from "next/navigation";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_KEY, BASE_IMAGE_URL, BASE_URL } from "@/app/constants";
 import { MovieDetail } from "@/app/types";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import Link from "next/link";
 import { Footer } from "@/app/components/footer/footer";
-import { ToggleTheme } from "@/app/components/Theme/ToggleTheme";
 import { Header } from "@/app/components/header/header";
 
 export default function MovieDetails() {
@@ -18,6 +18,8 @@ export default function MovieDetails() {
     const [movie, setMovie] = useState<MovieDetail | null>(null);
     const [moreLike, setMoreLike] = useState<MovieDetail[]>([]);
     const [credits, setCredits] = useState<{ director: string; writers: string; stars: string }>({ director: '', writers: '', stars: '' });
+    const [trailerKey, setTrailerKey] = useState<string | null>(null);
+    const [trailerOpen, setTrailerOpen] = useState(false);
 
     useEffect(() => {
         if (!movieId) return;
@@ -52,9 +54,22 @@ export default function MovieDetails() {
             }
         }
 
+        async function fetchTrailer() {
+            try {
+                const response = await axios.get(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`);
+                const trailer = response.data.results.find(
+                    (v: { type: string; site: string; key: string }) => v.type === "Trailer" && v.site === "YouTube"
+                );
+                setTrailerKey(trailer?.key ?? null);
+            } catch (error) {
+                console.error("Error fetching trailer:", error);
+            }
+        }
+
         fetchMovie();
         fetchCredits();
         fetchMoreLike();
+        fetchTrailer();
     }, [slug]);
 
     if (!movie) return <p className="text-white p-6">Loading...</p>;
@@ -64,7 +79,34 @@ export default function MovieDetails() {
             <Header></Header>
             <div className="p-6 bg-white dark:bg-gray-800 text-black dark:text-white">
 
-                <h2 className="text-3xl lg:text-4xl font-bold drop-shadow mb-6">{movie.title}</h2>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+                    <h2 className="text-3xl lg:text-4xl font-bold drop-shadow">{movie.title}</h2>
+                    {trailerKey && (
+                        <button
+                            onClick={() => setTrailerOpen(true)}
+                            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-full transition-colors w-fit shrink-0"
+                        >
+                            ▶ Watch Trailer
+                        </button>
+                    )}
+                </div>
+
+                <Dialog open={trailerOpen} onOpenChange={(open) => {
+                    setTrailerOpen(open);
+                }}>
+                    <DialogContent className="max-w-3xl p-0 bg-black border-none">
+                        <DialogTitle className="sr-only">{movie.title} Trailer</DialogTitle>
+                        {trailerOpen && (
+                            <iframe
+                                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1`}
+                                title={`${movie.title} Trailer`}
+                                allow="autoplay; encrypted-media"
+                                allowFullScreen
+                                className="w-full aspect-video rounded-lg"
+                            />
+                        )}
+                    </DialogContent>
+                </Dialog>
 
                 <div className="flex flex-col md:flex-row gap-4 mb-6">
                     <img
